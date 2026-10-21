@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Life Management</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div>
+            <h1>🎓 Student Life Management</h1>
+            <p>Manage your college life in one place.</p>
+        </div>
+        <button id="theme-toggle" type="button">🌙 Dark Mode</button>
+    </header>
+
+    <div class="app-layout">
+        <aside class="sidebar">
+            <h2>Student Life</h2>
+            <p>Manage · Study · Grow</p>
+
+            <nav>
+                <a href="#dashboard">🏠 Dashboard</a>
+                <a href="#tasks">✅ Tasks</a>
+                <a href="#timetable">📚 Study Timetable</a>
+                <a href="#events">📅 Events</a>
+                <a href="#exam-countdown">🎓 Exam Countdown</a>
+                <a href="#pomodoro">🍅 Pomodoro Timer</a>
+                <a href="#focus-mode">🎯 Focus Mode</a>
+                <a href="#reminders">🔔 Reminders</a>
+                <a href="#goals">🎯 Goals</a>
+                <a href="#flashcards">🗂️ Flashcards & Revision</a>
+                <a href="#marks">🎓 Marks Tracker</a>
+                <a href="#statistics">📊 Statistics</a>
+                <a href="#xp-rewards">🏆 XP & Badges</a>
+                <a href="#calendar">🗓️ Study Calendar</a>
+                <a href="#notes">📚 Study Notes</a>
+                <a href="#backup-restore">💾 Backup & Restore</a>
+            </nav>
+        </aside>
+
+        <main class="dashboard-content">
+
+            <!-- Dashboard Welcome -->
+            <section class="welcome" id="dashboard">
+                <h2>Welcome! ✨</h2>
+                <p>Let's make your day productive!</p>
+            </section>
+
+            <!-- Dashboard Summary -->
+            <section class="dashboard summary-grid">
+                <div class="card">
+                    <h3>Today's Tasks</h3>
+                    <p id="task-count">0 Tasks</p>
+                </div>
+
+                <div class="card">
+                    <h3>Upcoming Events</h3>
+                    <p id="event-count">No upcoming events</p>
+                </div>
+
+                <div class="card">
+                    <h3>Progress</h3>
+                    <p id="progress-text">0% Completed</p>
+                    <progress id="progress-bar" value="0" max="100"></progress>
+                </div>
+            </section>
+
+            <div class="widget-grid">
+
+                <!-- To-Do List -->
+                <section class="todo-section panel" id="tasks">
+                    <h2>✅ To-Do List</h2>
+
+                    <div class="todo-input">
+                        <input type="text" id="task-input" placeholder="Enter your task...">
+
+                        <select id="task-priority">
+                            <option value="High">High Priority</option>
+                            <option value="Medium" selected>Medium Priority</option>
+                            <option value="Low">Low Priority</option>
+                        </select>
+
+                        <button id="add-task" type="button">Add Task</button>
+                    </div>
+
+                    <div class="task-filters">
+                        <input type="text" id="task-search" placeholder="🔎 Search tasks...">
+
+                        <select id="status-filter">
+                            <option value="all">All Tasks</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                        </select>
+
+                        <select id="priority-filter">
+                            <option value="all">All Priorities</option>
+                            <option value="High">High Priority</option>
+                            <option value="Medium">Medium Priority</option>
+                            <option value="Low">Low Priority</option>
+                        </select>
+                    </div>
+
+                    <ul id="task-list"></ul>
+                </section>
+
+                <!-- Events -->
+                <section class="events-section panel" id="events">
+                    <h2>📅 Upcoming Events</h2>
+
+                    <div class="event-input">
+                        <input type="text" id="event-name" placeholder="Enter event name...">
+                        <input type="date" id="event-date">
+                        <button id="add-event" type="button">Add Event</button>
+                    </div>
+
+                    <ul id="event-list"></ul>
+                </section>
+                <!-- Exam Countdown -->
+                <section class="panel" id="exam-countdown">
+                    <h2>🎓 Exam Countdown</h2>
+                    <p>Keep track of your upcoming exams!</p>
+
+                    <form id="exam-form" class="exam-input">
+                        <input type="text" id="exam-name" placeholder="Exam name (e.g. Mid Sem)" aria-label="Exam name"
+                            required>
+
+                        <input type="text" id="exam-subject" placeholder="Subject (e.g. Mathematics)"
+                            aria-label="Exam subject" required>
+
+                        <input type="date" id="exam-date" aria-label="Exam date" required>
+
+                        <button type="submit">Add Exam</button>
+                    </form>
+
+                    <p id="exam-summary" aria-live="polite">
+                        No exams added yet.
+                    </p>
+
+                    <div id="exam-list"></div>
+                </section>
+
+                <!-- Study Timetable -->
+                <section class="timetable-section panel" id="timetable">
+                    <h2>📚 Study Timetable</h2>
+                    <p class="timetable-description">
+                        Plan your study sessions and stay consistent!
+                    </p>
+
+                    <div class="timetable-input">
+                        <input type="text" id="subject-name" placeholder="Enter subject name...">
+
+                        <select id="study-day">
+                            <option value="">Select Day</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                            <option>Sunday</option>
+                        </select>
+
+                        <label for="study-start">Start time</label>
+                        <input type="time" id="study-start">
+
+                        <label for="study-end">End time</label>
+                        <input type="time" id="study-end">
+
+                        <button id="add-study" type="button">
+                            Add Study Session
+                        </button>
+                    </div>
+
+                    <div id="timetable-list"></div>
+                </section>
+
+                <!-- Pomodoro Timer -->
+                <section class="pomodoro-card panel" id="pomodoro">
+                    <h2>🍅 Pomodoro Study Timer</h2>
+
+                    <p id="timer-mode">Study Time</p>
+                    <div id="pomodoro-timer">25:00</div>
+
+                    <div class="timer-buttons">
+                        <button id="start-timer" type="button">Start</button>
+                        <button id="pause-timer" type="button">Pause</button>
+                        <button id="reset-timer" type="button">Reset</button>
+                    </div>
+
+                    <button id="switch-timer" type="button">
+                        Take a Break
+                    </button>
+
+                    <p>
+                        Completed Sessions:
+                        <span id="session-count">0</span>
+                    </p>
+                </section>
+                <!-- ===== Focus Mode ===== -->
+                <section class="panel" id="focus-mode">
+                    <h2>🎯 Focus Mode</h2>
+                    <p>Set your study time and focus on one task at a time.</p>
+
+                    <div class="focus-mode-status">
+                        <span id="focus-status-label">Focus Mode is OFF</span>
+                    </div>
+
+                    <div class="focus-mode-settings">
+                        <label for="focus-duration">Study duration</label>
+                        <select id="focus-duration">
+                            <option value="15">15 minutes</option>
+                            <option value="25" selected>25 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">60 minutes</option>
+                        </select>
+                    </div>
+
+                    <div class="focus-timer-display" aria-live="polite">
+                        <span id="focus-timer">25:00</span>
+                        <p id="focus-message">Ready when you are. Let's focus!</p>
+                    </div>
+
+                    <div class="focus-controls">
+                        <button type="button" id="focus-toggle">🎯 Enter Focus Mode</button>
+                        <button type="button" id="focus-start">▶ Start</button>
+                        <button type="button" id="focus-pause">⏸ Pause</button>
+                        <button type="button" id="focus-reset">↻ Reset</button>
+                        <button type="button" id="focus-exit">✖ Exit Focus Mode</button>
+                    </div>
+
+                    <p class="focus-tip">
+                        Tip: Keep one study goal in mind, silence notifications, and take a short break when you're
+                        done.
+                    </p>
+                </section>
+                <!-- ===== Flashcards & Quick Revision ===== -->
+                <section class="panel" id="flashcards">
+                    <h2>🗂️ Flashcards & Quick Revision</h2>
+                    <p>Add questions and answers, then revise them anytime.</p>
+
+                    <form id="flashcard-form" class="flashcard-form">
+                        <label for="flashcard-question">Question / Term</label>
+                        <input type="text" id="flashcard-question" placeholder="e.g. What is a function in C?" required
+                            maxlength="300">
+
+                        <label for="flashcard-answer">Answer / Definition</label>
+                        <textarea id="flashcard-answer" placeholder="Write the answer here..." required maxlength="1000"
+                            rows="3"></textarea>
+
+                        <button type="submit">➕ Add Flashcard</button>
+                    </form>
+
+                    <div class="flashcard-summary">
+                        <span>Total Cards: <strong id="flashcard-count">0</strong></span>
+                        <span id="flashcard-position">Card 0 of 0</span>
+                    </div>
+
+                    <div id="flashcard-review-card" class="flashcard-review-card" role="button" tabindex="0"
+                        aria-label="Flashcard. Select to reveal the answer.">
+                        <span id="flashcard-side-label">QUESTION</span>
+                        <p id="flashcard-display">Add your first flashcard to begin!</p>
+                        <small id="flashcard-hint">Tap this card to reveal the answer.</small>
+                    </div>
+
+                    <div class="flashcard-controls">
+                        <button type="button" id="flashcard-prev">⬅ Previous</button>
+                        <button type="button" id="flashcard-flip">🔄 Show Answer</button>
+                        <button type="button" id="flashcard-next">Next ➡</button>
+                    </div>
+
+                    <button type="button" id="flashcard-delete" class="flashcard-delete" disabled>
+                        🗑️ Delete Current Card
+                    </button>
+
+                    <h3>📚 Your Saved Flashcards</h3>
+                    <div id="flashcard-list" class="flashcard-list"></div>
+
+                    <p id="flashcard-message" aria-live="polite">
+                        Your flashcards will be saved automatically.
+                    </p>
+                </section>
+                <!-- XP Points & Badges -->
+                <section class="panel" id="xp-rewards">
+                    <h2>🏆 XP Points & Badges</h2>
+                    <p>Complete tasks and study sessions to earn rewards!</p>
+
+                    <div class="xp-overview">
+                        <div class="xp-stat">
+                            <span>⭐ Total XP</span>
+                            <strong id="xp-total">0 XP</strong>
+                        </div>
+
+                        <div class="xp-stat">
+                            <span>🎮 Current Level</span>
+                            <strong id="xp-level">Level 1</strong>
+                        </div>
+                    </div>
+
+                    <div class="xp-progress-track">
+                        <div id="xp-progress-bar" class="xp-progress-bar"></div>
+                    </div>
+                    <p id="xp-progress-text">0 / 100 XP to next level</p>
+
+                    <h3>🎖️ Your Badges</h3>
+                    <div id="xp-badges" class="xp-badges"></div>
+
+                    <p id="xp-message" aria-live="polite">
+                        Complete a task to earn your first XP!
+                    </p>
+                </section>
+
+                <!-- Study Goals -->
+                <section class="goals-card panel" id="goals">
+                    <h2>🎯 My Study Goals</h2>
+
+                    <div class="goal-box">
+                        <h3>Daily Goal</h3>
+
+                        <label for="daily-goal-input">
+                            Target sessions per day
+                        </label>
+
+                        <div class="goal-controls">
+                            <input type="number" id="daily-goal-input" min="1" max="24" value="3">
+
+                            <button type="button" id="save-daily-goal">
+                                Save Goal
+                            </button>
+                        </div>
+
+                        <p id="daily-goal-progress">
+                            0 / 3 sessions completed
+                        </p>
+
+                        <progress id="daily-goal-bar" value="0" max="3"></progress>
+                        <p id="daily-goal-message"></p>
+                    </div>
+
+                    <div class="goal-box">
+                        <h3>Weekly Goal</h3>
+
+                        <label for="weekly-goal-input">
+                            Target sessions per week
+                        </label>
+
+                        <div class="goal-controls">
+                            <input type="number" id="weekly-goal-input" min="1" max="168" value="15">
+
+                            <button type="button" id="save-weekly-goal">
+                                Save Goal
+                            </button>
+                        </div>
+
+                        <p id="weekly-goal-progress">
+                            0 / 15 sessions completed
+                        </p>
+
+                        <progress id="weekly-goal-bar" value="0" max="15"></progress>
+                        <p id="weekly-goal-message"></p>
+                    </div>
+                </section>
+
+                <!-- Exam & Assignment Reminders -->
+                <section class="reminder-card panel" id="reminders">
+                    <h2>🔔 Exam & Assignment Reminders</h2>
+                    <p>Never miss an important deadline!</p>
+
+                    <form id="reminder-form">
+                        <input type="text" id="reminder-title" placeholder="Exam or assignment name" required>
+
+                        <input type="text" id="reminder-subject" placeholder="Subject name" required>
+
+                        <select id="reminder-type" required>
+                            <option value="Exam">Exam</option>
+                            <option value="Assignment">Assignment</option>
+                        </select>
+
+                        <input type="date" id="reminder-date" required>
+
+                        <textarea id="reminder-notes" placeholder="Topics to prepare or extra notes (optional)"
+                            rows="3"></textarea>
+
+                        <button type="submit">＋ Add Reminder</button>
+                    </form>
+
+                    <div class="reminder-filters">
+                        <button type="button" data-reminder-filter="all">All</button>
+                        <button type="button" data-reminder-filter="pending">Pending</button>
+                        <button type="button" data-reminder-filter="completed">Completed</button>
+                    </div>
+
+                    <div id="reminder-summary"></div>
+                    <div id="reminder-list"></div>
+                </section>
+
+                <!-- Marks & Academic Performance: corrected -->
+                <section class="marks-card panel" id="marks">
+                    <h2>🎓 Marks & Academic Performance</h2>
+                    <p>Track your subject-wise marks and semester progress.</p>
+
+                    <form id="marks-form">
+                        <input type="text" id="marks-subject" placeholder="Subject name" required>
+
+                        <select id="marks-semester" required>
+                            <option value="Semester 1">Semester 1</option>
+                            <option value="Semester 2">Semester 2</option>
+                            <option value="Semester 3">Semester 3</option>
+                            <option value="Semester 4">Semester 4</option>
+                            <option value="Semester 5">Semester 5</option>
+                            <option value="Semester 6">Semester 6</option>
+                            <option value="Semester 7">Semester 7</option>
+                            <option value="Semester 8">Semester 8</option>
+                        </select>
+
+                        <input type="number" id="marks-obtained" placeholder="Marks obtained" min="0" step="any"
+                            required>
+
+                        <input type="number" id="marks-maximum" placeholder="Maximum marks" min="0.01" step="any"
+                            required>
+
+                        <button type="submit">＋ Add Marks</button>
+                    </form>
+
+                    <div class="marks-filter">
+                        <label for="marks-filter">View semester:</label>
+
+                        <select id="marks-filter">
+                            <option value="all">All Semesters</option>
+                            <option value="Semester 1">Semester 1</option>
+                            <option value="Semester 2">Semester 2</option>
+                            <option value="Semester 3">Semester 3</option>
+                            <option value="Semester 4">Semester 4</option>
+                            <option value="Semester 5">Semester 5</option>
+                            <option value="Semester 6">Semester 6</option>
+                            <option value="Semester 7">Semester 7</option>
+                            <option value="Semester 8">Semester 8</option>
+                        </select>
+                    </div>
+
+                    <div id="marks-summary">
+                        <p>Total: 0 / 0</p>
+                        <p>Percentage: 0%</p>
+                    </div>
+
+                    <div id="marks-list"></div>
+                </section>
+
+                <!-- Study Statistics -->
+                <section class="statistics-section panel" id="statistics">
+                    <h2>📊 Study Statistics</h2>
+
+                    <div class="stats-cards">
+                        <div class="card">
+                            <h3>Current Streak 🔥</h3>
+                            <p id="current-streak">0 days</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>Best Streak 🏆</h3>
+                            <p id="best-streak">0 days</p>
+                        </div>
+
+                        <div class="card">
+                            <h3>This Week</h3>
+                            <p id="weekly-completed">0 tasks completed</p>
+                        </div>
+                    </div>
+
+                    <div class="weekly-progress">
+                        <h3>Weekly Progress</h3>
+                        <p id="weekly-summary">No study activity yet.</p>
+                        <div id="weekly-chart"></div>
+                    </div>
+                </section>
+
+                <!-- Study Calendar -->
+                <section class="calendar-section panel" id="calendar">
+                    <h2>🗓️ Study Streak Calendar</h2>
+                    <p>Every study day is a step forward!</p>
+
+                    <div class="calendar-streak-cards">
+                        <div class="calendar-stat">
+                            <span>🔥 Current Streak</span>
+                            <strong id="calendar-current-streak">0 days</strong>
+                        </div>
+
+                        <div class="calendar-stat">
+                            <span>🏆 Best Streak</span>
+                            <strong id="calendar-best-streak">0 days</strong>
+                        </div>
+                    </div>
+
+                    <div class="calendar-box">
+                        <div class="calendar-header">
+                            <button id="prev-month" type="button" aria-label="Previous month">&#8592;</button>
+
+                            <h3 id="calendar-month-year">Month Year</h3>
+
+                            <button id="next-month" type="button" aria-label="Next month">&#8594;</button>
+                        </div>
+
+                        <div class="calendar-weekdays">
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span>Sat</span>
+                            <span>Sun</span>
+                        </div>
+
+                        <div id="study-calendar" class="calendar-grid"></div>
+
+                        <div class="calendar-legend">
+                            <span><i class="legend-dot studied"></i> Studied</span>
+                            <span><i class="legend-dot not-studied"></i> No study record</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <section class="notes-section panel" id="notes">
+                <h2>📚 Study Resources & Notes</h2>
+                <p>Save your notes subject-wise and find them whenever you need.</p>
+
+                <form id="notes-form">
+                    <input type="text" id="note-title" placeholder="Note title (e.g. Matrix)" required>
+
+                    <select id="note-subject" required>
+                        <option value="">Select Subject</option>
+                        <option value="CSE">CSE</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="English">English</option>
+                        <option value="BEE">BEE</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <textarea id="note-content" placeholder="Write your notes here..." rows="5" required></textarea>
+
+                    <button type="submit">💾 Save Note</button>
+                </form>
+
+                <input type="search" id="notes-search" placeholder="🔍 Search notes by title or subject...">
+
+                <div id="notes-list"></div>
+            </section>
+
+
+            <footer class="dashboard-footer">
+                <p>✨ Small steps make big progress. Keep going! 💜</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+<!-- ===== Backup & Restore ===== -->
+<section class="panel" id="backup-restore">
+    <h2>💾 Backup & Restore</h2>
+    <p>
+        Keep a backup of your Student Life Management data
+        and restore it whenever needed.
+    </p>
+
+    <div class="backup-info">
+        <span>🛡️ Protect your study data</span>
+        <p>
+            Your backup includes saved data stored by this app
+            in your browser.
+        </p>
+    </div>
+
+    <div class="backup-actions">
+        <button type="button" id="backup-download">
+            ⬇️ Download Backup
+        </button>
+
+        <button type="button" id="backup-choose">
+            📂 Choose Backup File
+        </button>
+
+        <input type="file" id="backup-file-input" accept=".json,application/json" hidden>
+    </div>
+
+    <p id="backup-file-name">No backup file selected.</p>
+
+    <button type="button" id="backup-restore-button" disabled>
+        ♻️ Restore Selected Backup
+    </button>
+
+    <p id="backup-status" aria-live="polite">
+        Download a backup regularly to keep your data safe.
+    </p>
+
+    <p class="backup-warning">
+        ⚠️ Restoring replaces the current saved browser data with
+        the backup data. A safety backup will be downloaded first.
+        Keep your backup file somewhere safe.
+    </p>
+</section>
+
+</html>
